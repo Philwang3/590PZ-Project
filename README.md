@@ -1,2 +1,4 @@
 # 590PZ-Project
-Forks of this are student projects for IS 590PZ
+GIPF game project
+
+Team Member: Zhe Wang, Yao Xiao
