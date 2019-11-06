@@ -30,12 +30,13 @@ class board:
             self.board[loc_x][loc_y] = player
 
     def direction(self, loc_x, loc_y):
-        if (loc_x == 0 and loc_y == 0) or
-            (loc_x == 0 and loc_y == 4) or
-            (loc_x == 4 and loc_y == 0) or
-            (loc_x == 4 and loc_y == 8) or
-            (loc_x == 8 and loc_y == 0) or
-            (loc_x == 8 and loc_y == 4):
+        if (loc_x == 0 and loc_y == 0) or \
+                (loc_x == 0 and loc_y == 4) or \
+                (loc_x == 4 and loc_y == 0) or \
+                (loc_x == 4 and loc_y == 8) or \
+                (loc_x == 8 and loc_y == 0) or \
+                (loc_x == 8 and loc_y == 4):
+
             direction = 'M'
         else:
             direction = input("Please choose your direction: L or R: ")
@@ -44,7 +45,7 @@ class board:
 
     def update(self, direction):
         if direction == 'L':
-            if
+            pass
         if direction == 'R':
             pass
         if direction == 'M':
