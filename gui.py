@@ -32,8 +32,8 @@ class playboard():
         def DrawLine(angle):
             button_radius = self.GetButtonRadius()
             for i in range(1, 8):
-                row_size = (row - 4) * (self.height * math.sqrt(3) / 16)
-                col_size = self.height / 2 - abs(row - 4) * (self.height / 16)
+                row_size = (i - 4) * (self.height * math.sqrt(3) / 16)
+                col_size = self.height / 2 - abs(i - 4) * (self.height / 16)
                 sin = math.sin(angle)
                 cos = math.cos(angle)
                 pos1 = [cos * row_size - sin * (-col_size), sin * row_size + cos * (-col_size)]
