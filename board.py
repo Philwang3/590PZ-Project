@@ -28,7 +28,7 @@ class board:
         pass
 
     def insert(self, player):
-        loc = input("Please input the location number,from 0 to 23: ")
+        loc = int(input("Please input the location number,from 0 to 23: "))
         if loc < 0 or loc > 23:
             print("Illegal input, try again! ")
             return self.insert(self, player)
