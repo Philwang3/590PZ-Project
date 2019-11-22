@@ -4,6 +4,8 @@ May switch to networkx later
 """
 
 import numpy as np
+import gui
+import pygame
 
 
 class board:
@@ -407,18 +409,66 @@ class board:
         else:
             print("Game goes on!")
             return False
+
+
+class Game:
+
+    INIT_BOARD = 1
+    PLAYING = 2
+    GAME_OVER = 3
+
+    def __init__(self):
+        self._game = board()
+        self._window = pygame.display.set_mode((800,600))
+        self._play_board = gui.playboard(self._game, self._window)
+        self._mouse_board = gui.MouseMotion_Board(self._play_board, self._window)
+        self._state = self.INIT_BOARD
+        self.Draw()
+
+    def Draw(self):
+        pygame.init()
+        surface = pygame.display.get_surface()
+        surface.fill((0, 0, 0))
+        if self._state == self.GAME_OVER:
+            if self._game.white_piece == 0:
+                text = "Game is Over, Black wins!"
+            else:
+                text = "Game is Over, White wins!"
+            gui.DrawText(text, 45, (200, 250))
+        if self._state == self.INIT_BOARD:
+            text = "Game Start"
+            gui.DrawText(text, 45, (200, 250))
+            self._play_board.Draw_board()
+        elif self._state == self.PLAYING:
+            self._play_board.Draw_board()
+            print("PLaying")
+        pygame.display.update()
+
+    def run(self):
+        while True:
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:  # 判断事件类型是否为退出事件
+                   pygame.quit()
+            else:
+                self._state = self.PLAYING
+                n = 1
+                while not self._game.gameover():
+                    if n % 2 != 0:
+                        self._game.insert(1)
+                    else:
+                        self._game.insert(2)
+                    n = n + 1
+                    direction = self._game.direction()
+                    self._game.push(direction)
+                    self._game.update()
+                    self.Draw()
+                    # 改这个
+                    print(self._game.board.tolist())
+
+
         
 if __name__== "__main__":
-    game = board()
-    while not game.gameover():
-        n = 1
-        if n%2 != 0:
-            game.insert(1)
-        else:
-            game.insert(2)
-        n = n+1
-        direction = game.direction()
-        game.push(direction)
-        game.update()
-        # 改这个
-        print(game.board.tolist())   
+    game = Game()
+    game.run()
+
