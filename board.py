@@ -19,7 +19,7 @@ class board:
                                [0, 2, 0, 0, 1, 0],
                                [0, 0, 0, 0, 0]])
         self.white_piece = 15
-        self.white_piece = 15
+        self.black_piece = 15
         self.side = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (2, 6), (3, 7), (4, 8), (5, 7), (6, 6), (7, 5),
                      (8, 4),
                      (8, 3), (8, 2), (8, 1), (8, 0), (7, 0), (6, 0), (5, 0), (4, 0), (3, 0), (2, 0), (1, 0)]
@@ -407,3 +407,18 @@ class board:
         else:
             print("Game goes on!")
             return False
+        
+if __name__== "__main__":
+    game = board()
+    while not game.gameover():
+        n = 1
+        if n%2 != 0:
+            game.insert(1)
+        else:
+            game.insert(2)
+        n = n+1
+        direction = game.direction()
+        game.push(direction)
+        game.update()
+        # 改这个
+        print(game.board.tolist())   
