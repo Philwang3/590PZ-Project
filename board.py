@@ -7,8 +7,11 @@ import numpy as np
 import gui
 import pygame
 
+pygame.init()
 
 class board:
+
+    NETWORKMSG = pygame.USEREVENT
 
     def __init__(self):
         self.board = np.array([[0, 0, 0, 0, 0],
@@ -426,7 +429,6 @@ class Game:
         self.Draw()
 
     def Draw(self):
-        pygame.init()
         surface = pygame.display.get_surface()
         surface.fill((0, 0, 0))
         if self._state == self.GAME_OVER:
@@ -442,29 +444,28 @@ class Game:
         elif self._state == self.PLAYING:
             self._play_board.Draw_board()
             print("PLaying")
-        pygame.display.update()
+        pygame.display.flip()
 
     def run(self):
+        n = 1
         while True:
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:  # 判断事件类型是否为退出事件
-                   pygame.quit()
+            event = pygame.event.wait()
+            if event.type == pygame.QUIT or self._game.gameover():  # 判断事件类型是否为退出事件
+                pygame.quit()
+                return
             else:
                 self._state = self.PLAYING
-                n = 1
-                while not self._game.gameover():
-                    if n % 2 != 0:
-                        self._game.insert(1)
-                    else:
-                        self._game.insert(2)
-                    n = n + 1
-                    direction = self._game.direction()
-                    self._game.push(direction)
-                    self._game.update()
-                    self.Draw()
-                    # 改这个
-                    print(self._game.board.tolist())
+                if n % 2 != 0:
+                    self._game.insert(1)
+                else:
+                    self._game.insert(2)
+                n = n + 1
+                direction = self._game.direction()
+                self._game.push(direction)
+                self._game.update()
+                self.Draw()
+                # 改这个
+                print(self._game.board.tolist())
 
 
         
