@@ -18,9 +18,8 @@ class board:
                                [0, 0, 0, 0, 0, 0, 0],
                                [0, 2, 0, 0, 1, 0],
                                [0, 0, 0, 0, 0]])
-
-        self.white_number = 15
-        self.white_number = 15
+        self.white_piece = 15
+        self.white_piece = 15
         self.side = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (2, 6), (3, 7), (4, 8), (5, 7), (6, 6), (7, 5),
                      (8, 4),
                      (8, 3), (8, 2), (8, 1), (8, 0), (7, 0), (6, 0), (5, 0), (4, 0), (3, 0), (2, 0), (1, 0)]
@@ -35,6 +34,10 @@ class board:
             return self.insert(self, player)
         else:
             self.board[self.side[loc][0]][self.side[loc][1]] = player
+            if player == 1:
+                self.black_piece = self.black_piece - 1
+            if player == 2:
+                self.white_piece = self.white_piece - 1
 
     def direction(self):
         for i in self.side:
@@ -232,7 +235,175 @@ class board:
 
     def update(self):
         # remove piece if possible
-        pass
+        upleft = [(3, 0), (2, 0), (1, 0), (0, 0), (0, 1), (0, 2), (0, 3)]
+        upright = [(0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (2, 6), (3, 7)]
+        downleft = [(5, 0), (6, 0), (7, 0), (8, 0), (8, 1), (8, 2), (8, 3)]
+        downright = [(8, 1), (8, 2), (8, 3), (8, 4), (7, 5), (6, 6), (5, 7)]
+        left = [(1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0)]
+        right = [(1, 5), (2, 6), (3, 7), (4, 8), (5, 7), (6, 6), (7, 5)]
+
+        self.white_piece = 15
+        self.black_piece = 15
+
+        for i in upleft:
+            loc_x = i[0]
+            loc_y = i[1]
+            black_number = 0
+            white_number = 0
+            order = []
+            while loc_x < 4:
+                order.append((loc_x, loc_y))
+                loc_x = loc_x + 1
+                loc_y = loc_y + 1
+            while loc_x >= 4 and loc_x < 8 and loc_y < (12 - loc_x):
+                order.append((loc_x, loc_y))
+                loc_x = loc_x + 1
+            for j in order:
+                if self.board[j[0]][j[1]] == 1:
+                    black_number = black_number + 1
+                if self.board[j[0]][j[1]] == 2:
+                    white_number = white_number + 1
+            if white_number >= 4:
+                self.white_piece = white_number + self.white_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+            if black_number >= 4:
+                self.black_piece = black_number + self.black_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+
+        for i in upright:
+            loc_x = i[0]
+            loc_y = i[1]
+            black_number = 0
+            white_number = 0
+            order = []
+            while loc_x < 4:
+                order.append((loc_x, loc_y))
+                loc_x = loc_x + 1
+            while loc_x >= 4 and loc_x < 8 and loc_y > 0:
+                order.append((loc_x, loc_y))
+                loc_x = loc_x + 1
+                loc_y = loc_y - 1
+            for j in order:
+                if self.board[j[0]][j[1]] == 1:
+                    black_number = black_number + 1
+                if self.board[j[0]][j[1]] == 2:
+                    white_number = white_number + 1
+            if white_number >= 4:
+                self.white_piece = white_number + self.white_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+            if black_number >= 4:
+                self.black_piece = black_number + self.black_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+
+        for i in downleft:
+            loc_x = i[0]
+            loc_y = i[1]
+            black_number = 0
+            white_number = 0
+            order = []
+            while loc_x > 4:
+                order.append((loc_x, loc_y))
+                loc_x = loc_x - 1
+                loc_y = loc_y + 1
+            while loc_x <= 4 and loc_x > 0 and loc_y < loc_x + 4:
+                order.append((loc_x, loc_y))
+                loc_x = loc_x - 1
+            for j in order:
+                if self.board[j[0]][j[1]] == 1:
+                    black_number = black_number + 1
+                if self.board[j[0]][j[1]] == 2:
+                    white_number = white_number + 1
+            if white_number >= 4:
+                self.white_piece = white_number + self.white_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+            if black_number >= 4:
+                self.black_piece = black_number + self.black_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+
+        for i in downright:
+            loc_x = i[0]
+            loc_y = i[1]
+            black_number = 0
+            white_number = 0
+            order = []
+            while loc_x > 4:
+                order.append((loc_x, loc_y))
+                loc_x = loc_x - 1
+            while loc_x <= 4 and loc_x > 0 and loc_y > 0:
+                order.append((loc_x, loc_y))
+                loc_x = loc_x - 1
+                loc_y = loc_y - 1
+            for j in order:
+                if self.board[j[0]][j[1]] == 1:
+                    black_number = black_number + 1
+                if self.board[j[0]][j[1]] == 2:
+                    white_number = white_number + 1
+            if white_number >= 4:
+                self.white_piece = white_number + self.white_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+            if black_number >= 4:
+                self.black_piece = black_number + self.black_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+
+        for i in left:
+            loc_x = i[0]
+            loc_y = i[1]
+            black_number = 0
+            white_number = 0
+            order = [(loc_x, loc_y), (loc_x, loc_y + 1), (loc_x, loc_y + 2), (loc_x, loc_y + 3), (loc_x, loc_y + 4),
+                     (loc_x, loc_y + 5), (loc_x, loc_y + 6), (loc_x, loc_y + 7)]
+            order = order[0:(min(loc_x, 8 - loc_x) + 4)]
+            for j in order:
+                if self.board[j[0]][j[1]] == 1:
+                    black_number = black_number + 1
+                if self.board[j[0]][j[1]] == 2:
+                    white_number = white_number + 1
+            if white_number >= 4:
+                self.white_piece = white_number + self.white_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+            if black_number >= 4:
+                self.black_piece = black_number + self.black_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+
+        for i in right:
+            loc_x = i[0]
+            loc_y = i[1]
+            black_number = 0
+            white_number = 0
+            order = [(loc_x, loc_y), (loc_x, loc_y - 1), (loc_x, loc_y - 2), (loc_x, loc_y - 3), (loc_x, loc_y - 4),
+                     (loc_x, loc_y - 5), (loc_x, loc_y - 6), (loc_x, loc_y - 7)]
+            order = order[0:(min(loc_x, 8 - loc_x) + 4)]
+            for j in order:
+                if self.board[j[0]][j[1]] == 1:
+                    black_number = black_number + 1
+                if self.board[j[0]][j[1]] == 2:
+                    white_number = white_number + 1
+            if white_number >= 4:
+                self.white_piece = white_number + self.white_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
+            if black_number >= 4:
+                self.black_piece = black_number + self.black_piece
+                for m in order:
+                    self.board[m[0]][m[1]] = 0
 
     def gameover(self):
-        pass
+        if self.white_piece == 0:
+            print("Game is Over, Black wins!")
+            return True
+        if self.black_piece == 0:
+            print("Game is over, White wins!")
+            return True
+        else:
+            print("Game goes on!")
+            return False
