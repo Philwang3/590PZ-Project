@@ -71,25 +71,20 @@ class MouseMotion_Board(object):
     def __init__(self, play_board, window):
         self.play_board = play_board
         self.window = window
-
-        # highlight.  trigger = (board_pos, window_pos)
         self.Button_pos = []
         for i in range(9):
             self.Button_pos.append(((i, 0), play_board.Display_Size(i, 0)))
-            self.Button_pos.append(((i, 8 - abs(i - 4)),
-                                    play_board.Display_Size(i, 8 - abs(i - 4))))
+            self.Button_pos.append(((i, 8 - abs(i - 4)), play_board.Display_Size(i, 8 - abs(i - 4))))
         for i in range(1, 4):
             self.Button_pos.append(((0, i), play_board.Display_Size(0, i)))
             self.Button_pos.append(((8, i), play_board.Display_Size(8, i)))
-
         self.last_fill = None
 
     def MouseMotion(self, pos):
         button_radius = self.play_board.GetButtonRadius()
         current_fill = None
         for button in self.Button_pos:
-            dist2 = (pos[0] - button[1][0]) * (pos[0] - button[1][0]) + (pos[1] - button[1][1]) * (
-                        pos[1] - button[1][1])
+            dist2 = (pos[0] - button[1][0]) * (pos[0] - button[1][0]) + (pos[1] - button[1][1]) * (pos[1] - button[1][1])
             if dist2 < button_radius * button_radius:
                 current_fill = button
                 break
