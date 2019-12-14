@@ -3,7 +3,9 @@ import pygame
 
 
 def DrawText(string, size, pos):
-    """"""
+    """For plotting text message and chess board using PyGame framework, we looked into the gui.py
+    of  https://github.com/piotrf17/gipf and learnt some of its plotting method, so we learnt that and modified some
+    of the usage to fit our own code."""
     surface = pygame.display.get_surface()
     font = pygame.font.Font(None, size)
     text = font.render(string, 1, (255, 255, 255))
@@ -29,6 +31,7 @@ class playboard(object):
         self._DrawPieces()
 
     def DrawLine(self, angle):
+        """This step is to print all the lines in the chess board, we wish to print 8 lines with an given angle"""
         button_radius = int(self.height / 48)
         for i in range(1, 8):
             row_size = (i - 4) * (self.height * math.sqrt(3) / 16)
@@ -47,6 +50,8 @@ class playboard(object):
             pygame.draw.circle(self.window, (255, 255, 255), pos2, button_radius)
 
     def _DrawPieces(self):
+        """This step is to update the chess position after the chess board gets updated, it generally check the
+        list we stored in our board class and print all the chess position after movement"""
         print(self.board.board.tolist())
         for row in range(9):
             for col in range(len(self.board.board[row])):
