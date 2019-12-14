@@ -424,7 +424,6 @@ class Game:
         self._game = board()
         self._window = pygame.display.set_mode((800,600))
         self._play_board = gui.playboard(self._game, self._window)
-        self._mouse_board = gui.MouseMotion_Board(self._play_board, self._window)
         self._state = self.INIT_BOARD
         self.Draw()
 
