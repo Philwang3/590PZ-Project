@@ -46,6 +46,54 @@ class playboard(object):
             pos2[1] = int(pos2[1] + self.size_y)
 
             pygame.draw.line(self.window, (255, 255, 255), pos1, pos2)
+            if angle == math.pi / 3:
+                if i == 1:
+                   DrawText(str(9), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 2:
+                   DrawText(str(10), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 3:
+                   DrawText(str(11), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 4:
+                   DrawText(str(12), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(0), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 5:
+                   DrawText(str(23), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 6:
+                   DrawText(str(22), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 7:
+                   DrawText(str(21), 15, [pos2[0]+2, pos2[1]+2])
+            if angle == -math.pi / 3:
+                if i == 1:
+                   DrawText(str(1), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 2:
+                   DrawText(str(2), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 3:
+                   DrawText(str(3), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 4:
+                   DrawText(str(4), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(16), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 5:
+                   DrawText(str(15), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 6:
+                   DrawText(str(14), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 7:
+                   DrawText(str(13), 15, [pos2[0]+2, pos2[1]+2])
+            if angle == 0:
+                if i == 1:
+                   DrawText(str(5), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 2:
+                   DrawText(str(6), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 3:
+                   DrawText(str(7), 15, [pos1[0]+2, pos1[1]+2])
+                if i == 4:
+                   DrawText(str(8), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(20), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 5:
+                   DrawText(str(19), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 6:
+                   DrawText(str(18), 15, [pos2[0]+2, pos2[1]+2])
+                if i == 7:
+                   DrawText(str(17), 15, [pos2[0]+2, pos2[1]+2])
             pygame.draw.circle(self.window, (255, 255, 255), pos1, button_radius)
             pygame.draw.circle(self.window, (255, 255, 255), pos2, button_radius)
 
@@ -58,12 +106,12 @@ class playboard(object):
                 color = self.board.board[row][col]
                 if color:
                     pr = int(self.height / 24)
-                    row_size = (row - 4) * (self.height * math.sqrt(3) / 16)
-                    col_size = -(col - 4) * self.height / 8 - abs(row - 4) * (self.height / 16)
-                    size = int(row_size + self.size_x), int(col_size + self.size_y)
+                    row_pos = (row - 4) * (self.height * math.sqrt(3) / 16)
+                    col_pos = -(col - 4) * self.height / 8 - abs(row - 4) * (self.height / 16)
+                    pos = int(row_pos + self.size_x), int(col_pos + self.size_y)
                     if color == 1:
-                        pygame.draw.circle(self.window, (255, 255, 255), size, pr, 1)
-                        pygame.draw.circle(self.window, (0, 0, 0), size, pr - 1)
+                        pygame.draw.circle(self.window, (255, 255, 255), pos, pr, 1)
+                        pygame.draw.circle(self.window, (0, 0, 0), pos, pr - 1)
                     elif color == 2:
-                        pygame.draw.circle(self.window, (0, 0, 0), size, pr, 1)
-                        pygame.draw.circle(self.window, (255, 255, 255), size, pr - 1)
+                        pygame.draw.circle(self.window, (0, 0, 0), pos, pr, 1)
+                        pygame.draw.circle(self.window, (255, 255, 255), pos, pr - 1)
