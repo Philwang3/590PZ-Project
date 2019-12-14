@@ -3,7 +3,7 @@ import pygame
 
 
 def DrawText(string, size, pos):
-    """Draw the text in string at the pos tuple (x, y)."""
+    """"""
     surface = pygame.display.get_surface()
     font = pygame.font.Font(None, size)
     text = font.render(string, 1, (255, 255, 255))
@@ -23,43 +23,28 @@ class playboard(object):
 
     def Draw_board(self):
         print("running Draw Board")
-        self._Draw_B()
+        self.DrawLine(0)
+        self.DrawLine(math.pi / 3)
+        self.DrawLine(-math.pi / 3)
         self._DrawPieces()
 
-    def Display_Size(self, row: int, col: int):
-        row_size = (row - 4) * (self.height * math.sqrt(3) / 16)
-        col_size = -(col - 4) * self.height / 8 - abs(row - 4) * (self.height / 16)
-        return int(row_size + self.size_x), int(col_size + self.size_y)
+    def DrawLine(self, angle):
+        button_radius = int(self.height / 48)
+        for i in range(1, 8):
+            row_size = (i - 4) * (self.height * math.sqrt(3) / 16)
+            col_size = self.height / 2 - abs(i - 4) * (self.height / 16)
+            sin = math.sin(angle)
+            cos = math.cos(angle)
+            pos1 = [cos * row_size - sin * (-col_size), sin * row_size + cos * (-col_size)]
+            pos2 = [cos * row_size - sin * col_size, sin * row_size + cos * col_size]
+            pos1[0] = int(pos1[0] + self.size_x)
+            pos2[0] = int(pos2[0] + self.size_x)
+            pos1[1] = int(pos1[1] + self.size_y)
+            pos2[1] = int(pos2[1] + self.size_y)
 
-    def GetButtonRadius(self):
-        return int(self.height / 48)
-
-    def GetPieceRadius(self):
-        return int(self.height / 24)
-
-    def _Draw_B(self):
-
-        def DrawLine(angle):
-            button_radius = self.GetButtonRadius()
-            for i in range(1, 8):
-                row_size = (i - 4) * (self.height * math.sqrt(3) / 16)
-                col_size = self.height / 2 - abs(i - 4) * (self.height / 16)
-                sin = math.sin(angle)
-                cos = math.cos(angle)
-                pos1 = [cos * row_size - sin * (-col_size), sin * row_size + cos * (-col_size)]
-                pos2 = [cos * row_size - sin * col_size, sin * row_size + cos * col_size]
-                pos1[0] = int(pos1[0] + self.size_x)
-                pos2[0] = int(pos2[0] + self.size_x)
-                pos1[1] = int(pos1[1] + self.size_y)
-                pos2[1] = int(pos2[1] + self.size_y)
-
-                pygame.draw.line(self.window, (255, 255, 255), pos1, pos2)
-                pygame.draw.circle(self.window, (255, 255, 255), pos1, button_radius)
-                pygame.draw.circle(self.window, (255, 255, 255), pos2, button_radius)
-
-        DrawLine(0)
-        DrawLine(math.pi / 3)
-        DrawLine(-math.pi / 3)
+            pygame.draw.line(self.window, (255, 255, 255), pos1, pos2)
+            pygame.draw.circle(self.window, (255, 255, 255), pos1, button_radius)
+            pygame.draw.circle(self.window, (255, 255, 255), pos2, button_radius)
 
     def _DrawPieces(self):
         print(self.board.board.tolist())
@@ -67,8 +52,10 @@ class playboard(object):
             for col in range(len(self.board.board[row])):
                 color = self.board.board[row][col]
                 if color:
-                    pr = self.GetPieceRadius()
-                    size = self.Display_Size(row, col)
+                    pr = int(self.height / 24)
+                    row_size = (row - 4) * (self.height * math.sqrt(3) / 16)
+                    col_size = -(col - 4) * self.height / 8 - abs(row - 4) * (self.height / 16)
+                    size = int(row_size + self.size_x), int(col_size + self.size_y)
                     if color == 1:
                         pygame.draw.circle(self.window, (255, 255, 255), size, pr, 1)
                         pygame.draw.circle(self.window, (0, 0, 0), size, pr - 1)
