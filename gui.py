@@ -48,52 +48,52 @@ class playboard(object):
             pygame.draw.line(self.window, (255, 255, 255), pos1, pos2)
             if angle == math.pi / 3:
                 if i == 1:
-                   DrawText(str(9), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(9), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 2:
-                   DrawText(str(10), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(10), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 3:
-                   DrawText(str(11), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(11), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 4:
-                   DrawText(str(12), 15, [pos1[0]+2, pos1[1]+2])
-                   DrawText(str(0), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(12), 15, [pos1[0]+3, pos1[1]+3])
+                   DrawText(str(0), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 5:
-                   DrawText(str(23), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(23), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 6:
-                   DrawText(str(22), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(22), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 7:
-                   DrawText(str(21), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(21), 15, [pos2[0]+3, pos2[1]+3])
             if angle == -math.pi / 3:
                 if i == 1:
-                   DrawText(str(1), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(1), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 2:
-                   DrawText(str(2), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(2), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 3:
-                   DrawText(str(3), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(3), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 4:
-                   DrawText(str(4), 15, [pos1[0]+2, pos1[1]+2])
-                   DrawText(str(16), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(4), 15, [pos1[0]+3, pos1[1]+3])
+                   DrawText(str(16), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 5:
-                   DrawText(str(15), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(15), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 6:
-                   DrawText(str(14), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(14), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 7:
-                   DrawText(str(13), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(13), 15, [pos2[0]+3, pos2[1]+3])
             if angle == 0:
                 if i == 1:
-                   DrawText(str(5), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(5), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 2:
-                   DrawText(str(6), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(6), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 3:
-                   DrawText(str(7), 15, [pos1[0]+2, pos1[1]+2])
+                   DrawText(str(7), 15, [pos1[0]+3, pos1[1]+3])
                 if i == 4:
-                   DrawText(str(8), 15, [pos1[0]+2, pos1[1]+2])
-                   DrawText(str(20), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(8), 15, [pos1[0]+3, pos1[1]+3])
+                   DrawText(str(20), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 5:
-                   DrawText(str(19), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(19), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 6:
-                   DrawText(str(18), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(18), 15, [pos2[0]+3, pos2[1]+3])
                 if i == 7:
-                   DrawText(str(17), 15, [pos2[0]+2, pos2[1]+2])
+                   DrawText(str(17), 15, [pos2[0]+3, pos2[1]+3])
             pygame.draw.circle(self.window, (255, 255, 255), pos1, button_radius)
             pygame.draw.circle(self.window, (255, 255, 255), pos2, button_radius)
 
