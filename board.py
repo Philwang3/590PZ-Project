@@ -9,6 +9,7 @@ import pygame
 
 pygame.init()
 
+
 class board:
 
     NETWORKMSG = pygame.USEREVENT
@@ -87,6 +88,28 @@ class board:
             while loc_x >= 4 and loc_x < 8 and loc_y < (12 - loc_x):
                 order.append((loc_x, loc_y))
                 loc_x = loc_x + 1
+            for index, obj in enumerate(order):
+                if self.board[obj[0]][obj[1]] == 0:
+                    while index > 0:
+                        self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
+                            order[index - 1][1]]
+                        index = index - 1
+                    self.board[order[0][0]][order[0][1]] = 0
+                    break
+        upright = [(0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (2, 6), (3, 7)]
+        if direction == 'R' and (loc_x,loc_y) in upright:
+
+
+            pos_x = loc_x
+            pos_y = loc_y
+            order = []
+            while pos_x < 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x + 1
+            while pos_x >= 4 and pos_x < 8 and pos_y > 0:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x + 1
+                pos_y = pos_y - 1
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -246,9 +269,6 @@ class board:
         downright = [(8, 1), (8, 2), (8, 3), (8, 4), (7, 5), (6, 6), (5, 7)]
         left = [(1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0)]
         right = [(1, 5), (2, 6), (3, 7), (4, 8), (5, 7), (6, 6), (7, 5)]
-
-        self.white_piece = 15
-        self.black_piece = 15
 
         for i in upleft:
             loc_x = i[0]
@@ -465,7 +485,6 @@ class Game:
                 self.Draw()
                 # 改这个
                 print(self._game.board.tolist())
-
 
         
 if __name__== "__main__":
