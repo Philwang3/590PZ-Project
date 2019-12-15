@@ -38,11 +38,15 @@ class AI:
             else:
                 text = "Game is Over, White wins!"
             gui.DrawText(text, 45, (150, 150))
+            gui.DrawText("White chess: "+str(self.game.white_piece), 30, (150, 200))
+            gui.DrawText("Black chess: "+str(self.game.black_piece), 30, (150, 250))
         elif self.game.gameover() == False:
             if b == 1:
                 text = "Black chess's turn"
             else:
                 text = "White chess's turn"
+            gui.DrawText("White chess: "+str(self.game.white_piece), 30, (150, 200))
+            gui.DrawText("Black chess: "+str(self.game.black_piece), 30, (150, 250))
             gui.DrawText(text, 45, (150, 150))
             self.play_board.Draw_board()
             print("PLaying")
@@ -79,6 +83,9 @@ class AI:
         return direction
 
     def AI_turn(self):
+        print("AI is now deciding")
+        b = 0
+        block_ai = 0
         if self.ai == 'b':
             block_ai = 1
             b = 2
@@ -96,6 +103,8 @@ class AI:
         self.Draw(b)
 
     def player_turn(self):
+        block_player = 0
+        b = 0
         if self.player == 'b':
             block_player = 1
             b = 2
@@ -129,6 +138,7 @@ class AI:
                         self.AI_turn()
                 n = n + 1
                 print(self.game.board.tolist())
+                time.sleep(1)
             elif self.game.gameover() == True:
                 self.state = 3
                 self.Draw('over')

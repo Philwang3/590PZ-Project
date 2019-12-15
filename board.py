@@ -6,6 +6,7 @@ May switch to networkx later
 import numpy as np
 import gui
 import pygame
+import time
 
 pygame.init()
 
@@ -585,6 +586,8 @@ class Game:
                 self.Draw(b)
                 # 改这个
                 print(self.game.board.tolist())
+                print(self.game.gameover())
+                time.sleep(1)
             elif self.game.gameover() == True:
                 self.Draw('over')
                 return
