@@ -83,39 +83,43 @@ class AI:
         return direction
 
     def AI_turn(self):
+        workable = False
         print("AI is now deciding")
-        b = 0
+        turn = 0
         block_ai = 0
         if self.ai == 'b':
             block_ai = 1
-            b = 2
+            turn = 2
         elif self.ai == 'w':
             block_ai = 2
-            b = 1
-        self.generate_pos(block_ai)
-        print(block_ai)
-        direction = self.generate_direction()
-        print("direction" + direction)
-        self.game.push(direction)
+            turn = 1
+        while workable == False:
+            self.generate_pos(block_ai)
+            print(block_ai)
+            direction = self.generate_direction()
+            print("direction" + direction)
+            workable = self.game.push(direction)
         self.game.update()
         print("AI's turn:")
         time.sleep(2)
-        self.Draw(b)
+        self.Draw(turn)
 
     def player_turn(self):
+        workable = False
         block_player = 0
-        b = 0
+        turn = 0
         if self.player == 'b':
             block_player = 1
-            b = 2
+            turn = 2
         elif self.player == 'w':
             block_player = 2
-            b = 1
-        self.game.insert(block_player)
-        direction = self.game.direction()
-        self.game.push(direction)
+            turn = 1
+        while workable == False:
+            self.game.insert(block_player)
+            direction = self.game.direction()
+            workable = self.game.push(direction)
         self.game.update()
-        self.Draw(b)
+        self.Draw(turn)
 
     def run(self):
         n = 1

@@ -782,16 +782,24 @@ class Game:
             elif not self.game.gameover():
                 self.state = 2
                 if n % 2 != 0:
+                    workable = False
                     self.game.insert(1)
-                    b = 2
+                    turn = 2
+                    while workable == False:
+                        direction = self.game.direction()
+                        workable = self.game.push(direction)
+                    self.game.update()
+                    self.Draw(turn)
                 else:
+                    workable = False
                     self.game.insert(2)
-                    b = 1
+                    turn = 1
+                    while workable == False:
+                        direction = self.game.direction()
+                        workable = self.game.push(direction)
+                    self.game.update()
+                    self.Draw(turn)
                 n = n + 1
-                direction = self.game.direction()
-                self.game.push(direction)
-                self.game.update()
-                self.Draw(b)
                 # 改这个
                 print(self.game.board.tolist())
             elif self.game.gameover():
