@@ -73,6 +73,17 @@ class board:
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x + 1, pos_y + 1), (pos_x + 2, pos_y + 2), (pos_x + 3, pos_y + 3),
                      (pos_x + 4, pos_y + 4), (pos_x + 5, pos_y + 4), (pos_x + 6, pos_y + 4), (pos_x + 7, pos_y + 4)]
+            # Test if it's pushable
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
+
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -92,6 +103,15 @@ class board:
             while pos_x >= 4 and pos_x < 8 and pos_y < (12 - pos_x):
                 order.append((pos_x, pos_y))
                 pos_x = pos_x + 1
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -112,6 +132,15 @@ class board:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x + 1
                 pos_y = pos_y - 1
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -127,6 +156,15 @@ class board:
             order = [(pos_x, pos_y), (pos_x + 1, pos_y), (pos_x + 2, pos_y), (pos_x + 3, pos_y), (pos_x + 4, pos_y),
                      (pos_x + 5, pos_y - 1), (pos_x + 6, pos_y - 2), (pos_x + 7, pos_y - 3)]
             order = order[0:(pos_y + 4)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -141,6 +179,15 @@ class board:
             order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
                      (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -149,17 +196,26 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-            if direction == 'L' and (loc_x, loc_y) in [(0, 4), (1, 5), (2, 6), (3, 7)]:
-                pos_x = loc_x
-                pos_y = loc_y
-                order = []
-                while pos_x < 4:
-                    order.append((pos_x, pos_y))
-                    pos_x = pos_x + 1
-                while pos_x >= 4 and pos_x < 8 and pos_y > 0:
-                    order.append((pos_x, pos_y))
-                    pos_x = pos_x + 1
-                    pos_y = pos_y - 1
+        if direction == 'L' and (loc_x, loc_y) in [(0, 4), (1, 5), (2, 6), (3, 7)]:
+            pos_x = loc_x
+            pos_y = loc_y
+            order = []
+            while pos_x < 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x + 1
+            while pos_x >= 4 and pos_x < 8 and pos_y > 0:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x + 1
+                pos_y = pos_y - 1
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -174,6 +230,15 @@ class board:
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x - 1, pos_y + 1), (pos_x - 2, pos_y + 2), (pos_x - 3, pos_y + 3),
                      (pos_x - 4, pos_y + 4), (pos_x - 5, pos_y + 4), (pos_x - 6, pos_y + 4), (pos_x - 7, pos_y + 4)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -193,6 +258,15 @@ class board:
             while pos_x <= 4 and pos_x > 0 and pos_y < pos_x + 4:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x - 1
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -212,6 +286,15 @@ class board:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x - 1
                 pos_y = pos_y - 1
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -226,6 +309,15 @@ class board:
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x - 1, pos_y), (pos_x - 2, pos_y), (pos_x - 3, pos_y), (pos_x - 4, pos_y),
                      (pos_x - 5, pos_y - 1), (pos_x - 6, pos_y - 2), (pos_x - 7, pos_y - 3)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -240,6 +332,15 @@ class board:
             order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
                      (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -259,6 +360,15 @@ class board:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x - 1
                 pos_y = pos_y - 1
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -273,6 +383,15 @@ class board:
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
                      (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -292,6 +411,15 @@ class board:
             while pos_x >= 4 and pos_x < 8 and pos_y < (12 - pos_x):
                 order.append((pos_x, pos_y))
                 pos_x = pos_x + 1
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -306,6 +434,15 @@ class board:
             order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
                      (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -320,6 +457,15 @@ class board:
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
                      (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -339,6 +485,15 @@ class board:
             while pos_x <= 4 and pos_x > 0 and pos_y < pos_x + 4:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x - 1
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -353,6 +508,15 @@ class board:
             order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
                      (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
+            limit = len(order) - 1
+            occupied = 0
+            for i in order:
+                if self.board[i[0]][i[1]] != 0:
+                    occupied = occupied + 1
+            if limit <= occupied:
+                print("This line is full and cannot be pushed! Make another choice!")
+                self.board[loc_x][loc_y] = 0
+                return False
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -567,10 +731,10 @@ class Game:
         n = 1
         while True:
             event = pygame.event.wait()
-            if event.type == pygame.QUIT :  # 判断事件类型是否为退出事件
+            if event.type == pygame.QUIT:  # 判断事件类型是否为退出事件
                 pygame.quit()
                 return
-            elif self.game.gameover() == False:
+            elif not self.game.gameover():
                 self.state = 2
                 if n % 2 != 0:
                     self.game.insert(1)
@@ -585,13 +749,12 @@ class Game:
                 self.Draw(b)
                 # 改这个
                 print(self.game.board.tolist())
-            elif self.game.gameover() == True:
+            elif self.game.gameover():
                 self.Draw('over')
                 return
 
-
         
-if __name__== "__main__":
+if __name__ == "__main__":
     game = Game()
     game.run()
 
