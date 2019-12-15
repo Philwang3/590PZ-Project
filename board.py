@@ -762,12 +762,16 @@ class Game:
             else:
                 text = "Game is Over, White wins!"
             gui.DrawText(text, 45, (150, 150))
+            gui.DrawText("White chess: " + str(self.game.white_piece), 30, (150, 200))
+            gui.DrawText("Black chess: " + str(self.game.black_piece), 30, (150, 250))
         elif self.game.gameover() == False:
             if b == 1:
                 text = "Black chess's turn"
             else:
                 text = "White chess's turn"
             gui.DrawText(text, 45, (150, 150))
+            gui.DrawText("White chess: " + str(self.game.white_piece), 30, (150, 200))
+            gui.DrawText("Black chess: " + str(self.game.black_piece), 30, (150, 250))
             self.play_board.Draw_board()
             print("PLaying")
         pygame.display.flip()
@@ -783,18 +787,18 @@ class Game:
                 self.state = 2
                 if n % 2 != 0:
                     workable = False
-                    self.game.insert(1)
                     turn = 2
                     while workable == False:
+                        self.game.insert(1)
                         direction = self.game.direction()
                         workable = self.game.push(direction)
                     self.game.update()
                     self.Draw(turn)
                 else:
                     workable = False
-                    self.game.insert(2)
                     turn = 1
                     while workable == False:
+                        self.game.insert(2)
                         direction = self.game.direction()
                         workable = self.game.push(direction)
                     self.game.update()
