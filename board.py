@@ -537,32 +537,29 @@ class board:
 
 class Game:
 
-    INIT_BOARD = 1
-    PLAYING = 2
-    GAME_OVER = 3
-
     def __init__(self):
-        self._game = board()
-        self._window = pygame.display.set_mode((800,600))
-        self._play_board = gui.playboard(self._game, self._window)
-        self._state = self.INIT_BOARD
-        self.Draw()
+        self.game = board()
+        self.window = pygame.display.set_mode((700, 600))
+        self.play_board = gui.playboard(self.game, self.window)
+        self.state = 1
+        self.Draw(1)
 
-    def Draw(self):
+    def Draw(self, b):
         surface = pygame.display.get_surface()
         surface.fill((0, 0, 0))
-        if self._state == self.GAME_OVER:
-            if self._game.white_piece == 0:
+        if self.game.gameover():
+            if self.game.white_piece == 0:
                 text = "Game is Over, Black wins!"
             else:
                 text = "Game is Over, White wins!"
-            gui.DrawText(text, 45, (200, 250))
-        if self._state == self.INIT_BOARD:
-            text = "Game Start"
-            gui.DrawText(text, 45, (200, 250))
-            self._play_board.Draw_board()
-        elif self._state == self.PLAYING:
-            self._play_board.Draw_board()
+            gui.DrawText(text, 45, (150, 150))
+        elif self.game.gameover() == False:
+            if b == 1:
+                text = "Black chess's turn"
+            else:
+                text = "White chess's turn"
+            gui.DrawText(text, 45, (150, 150))
+            self.play_board.Draw_board()
             print("PLaying")
         pygame.display.flip()
 
@@ -570,22 +567,25 @@ class Game:
         n = 1
         while True:
             event = pygame.event.wait()
-            if event.type == pygame.QUIT or self._game.gameover():  # 判断事件类型是否为退出事件
+            if event.type == pygame.QUIT or self.game.gameover():  # 判断事件类型是否为退出事件
                 pygame.quit()
                 return
             else:
-                self._state = self.PLAYING
+                self.state = 2
                 if n % 2 != 0:
-                    self._game.insert(1)
+                    self.game.insert(1)
+                    b = 2
                 else:
-                    self._game.insert(2)
+                    self.game.insert(2)
+                    b = 1
                 n = n + 1
-                direction = self._game.direction()
-                self._game.push(direction)
-                self._game.update()
-                self.Draw()
+                direction = self.game.direction()
+                self.game.push(direction)
+                self.game.update()
+                self.Draw(b)
                 # 改这个
-                print(self._game.board.tolist())
+                print(self.game.board.tolist())
+
 
         
 if __name__== "__main__":
