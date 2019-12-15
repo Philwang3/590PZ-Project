@@ -67,10 +67,12 @@ class board:
             if self.board[i[0]][i[1]] != 0:
                 loc_x = i[0]
                 loc_y = i[1]
-        # 左上到右下
+        # 最上面一排
         if direction == 'M' and (loc_x, loc_y) == (0, 0):
-            order = [(loc_x, loc_y), (loc_x + 1, loc_y + 1), (loc_x + 2, loc_y + 2), (loc_x + 3, loc_y + 3),
-                     (loc_x + 4, loc_y + 4), (loc_x + 5, loc_y + 4), (loc_x + 6, loc_y + 4), (loc_x + 7, loc_y + 4)]
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x + 1, pos_y + 1), (pos_x + 2, pos_y + 2), (pos_x + 3, pos_y + 3),
+                     (pos_x + 4, pos_y + 4), (pos_x + 5, pos_y + 4), (pos_x + 6, pos_y + 4), (pos_x + 7, pos_y + 4)]
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -80,14 +82,16 @@ class board:
                     self.board[order[0][0]][order[0][1]] = 0
                     break
         if direction == 'L' and loc_x == 0:
+            pos_x = loc_x
+            pos_y = loc_y
             order = []
-            while loc_x < 4:
-                order.append((loc_x, loc_y))
-                loc_x = loc_x + 1
-                loc_y = loc_y + 1
-            while loc_x >= 4 and loc_x < 8 and loc_y < (12 - loc_x):
-                order.append((loc_x, loc_y))
-                loc_x = loc_x + 1
+            while pos_x < 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x + 1
+                pos_y = pos_y + 1
+            while pos_x >= 4 and pos_x < 8 and pos_y < (12 - pos_x):
+                order.append((pos_x, pos_y))
+                pos_x = pos_x + 1
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -96,10 +100,8 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        upright = [(0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (2, 6), (3, 7)]
-        if direction == 'R' and (loc_x,loc_y) in upright:
 
-
+        if direction == 'R' and loc_x == 0:
             pos_x = loc_x
             pos_y = loc_y
             order = []
@@ -118,11 +120,13 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        # 右上到左下
+        # 右上角的位置
         if direction == 'M' and (loc_x, loc_y) == (0, 4):
-            order = [(loc_x, loc_y), (loc_x + 1, loc_y), (loc_x + 2, loc_y), (loc_x + 3, loc_y), (loc_x + 4, loc_y),
-                     (loc_x + 5, loc_y - 1), (loc_x + 6, loc_y - 2), (loc_x + 7, loc_y - 3)]
-            order = order[0:(loc_y + 4)]
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x + 1, pos_y), (pos_x + 2, pos_y), (pos_x + 3, pos_y), (pos_x + 4, pos_y),
+                     (pos_x + 5, pos_y - 1), (pos_x + 6, pos_y - 2), (pos_x + 7, pos_y - 3)]
+            order = order[0:(pos_y + 4)]
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -131,16 +135,12 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'R' and (loc_x, loc_y) == (0, 4):
-            order = []
-            while loc_x < 4:
-                order.append((loc_x, loc_y))
-                loc_x = loc_x + 1
-
-            while loc_x >= 4 and loc_x < 8 and loc_y > 0:
-                order.append((loc_x, loc_y))
-                loc_x = loc_x + 1
-                loc_y = loc_y - 1
+        if direction == 'R' and (loc_x, loc_y) in [(0,4), (1,5), (2,6), (3,7)]:
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
+                     (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
+            order = order[0:(min(pos_x, 8 - pos_x) + 4)]
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -149,10 +149,31 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        # 左下到右上
+            if direction == 'L' and (loc_x, loc_y) in [(0, 4), (1, 5), (2, 6), (3, 7)]:
+                pos_x = loc_x
+                pos_y = loc_y
+                order = []
+                while pos_x < 4:
+                    order.append((pos_x, pos_y))
+                    pos_x = pos_x + 1
+                while pos_x >= 4 and pos_x < 8 and pos_y > 0:
+                    order.append((pos_x, pos_y))
+                    pos_x = pos_x + 1
+                    pos_y = pos_y - 1
+            for index, obj in enumerate(order):
+                if self.board[obj[0]][obj[1]] == 0:
+                    while index > 0:
+                        self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
+                            order[index - 1][1]]
+                        index = index - 1
+                    self.board[order[0][0]][order[0][1]] = 0
+                    break
+        # 最下面一排
         if direction == 'M' and (loc_x, loc_y) == (8, 0):
-            order = [(loc_x, loc_y), (loc_x - 1, loc_y + 1), (loc_x - 2, loc_y + 2), (loc_x - 3, loc_y + 3),
-                     (loc_x - 4, loc_y + 4), (loc_x - 5, loc_y + 4), (loc_x - 6, loc_y + 4), (loc_x - 7, loc_y + 4)]
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x - 1, pos_y + 1), (pos_x - 2, pos_y + 2), (pos_x - 3, pos_y + 3),
+                     (pos_x - 4, pos_y + 4), (pos_x - 5, pos_y + 4), (pos_x - 6, pos_y + 4), (pos_x - 7, pos_y + 4)]
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -162,27 +183,16 @@ class board:
                     self.board[order[0][0]][order[0][1]] = 0
                     break
         if direction == 'R' and loc_x == 8:
+            pos_x = loc_x
+            pos_y = loc_y
             order = []
-            while loc_x > 4:
-                order.append((loc_x, loc_y))
-                loc_x = loc_x - 1
-                loc_y = loc_y + 1
-            while loc_x <= 4 and loc_x > 0 and loc_y < loc_x + 4:
-                order.append((loc_x, loc_y))
-                loc_x = loc_x - 1
-            for index, obj in enumerate(order):
-                if self.board[obj[0]][obj[1]] == 0:
-                    while index > 0:
-                        self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
-                            order[index - 1][1]]
-                        index = index - 1
-                    self.board[order[0][0]][order[0][1]] = 0
-                    break
-
-        # 右下到左上
-        if direction == 'M' and (loc_x, loc_y) == (8, 4):
-            order = [(loc_x, loc_y), (loc_x - 1, loc_y), (loc_x - 2, loc_y), (loc_x - 3, loc_y), (loc_x - 4, loc_y),
-                     (loc_x - 5, loc_y - 1), (loc_x - 6, loc_y - 2), (loc_x - 7, loc_y - 3)]
+            while pos_x > 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x - 1
+                pos_y = pos_y + 1
+            while pos_x <= 4 and pos_x > 0 and pos_y < pos_x + 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x - 1
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -192,15 +202,16 @@ class board:
                     self.board[order[0][0]][order[0][1]] = 0
                     break
         if direction == 'L' and loc_x == 8:
+            pos_x = loc_x
+            pos_y = loc_y
             order = []
-            while loc_x > 4:
-                order.append((loc_x, loc_y))
-                loc_x = loc_x - 1
-
-            while loc_x <= 4 and loc_x > 0 and loc_y > 0:
-                order.append((loc_x, loc_y))
-                loc_x = loc_x - 1
-                loc_y = loc_y - 1
+            while pos_x > 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x - 1
+            while pos_x <= 4 and pos_x > 0 and pos_y > 0:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x - 1
+                pos_y = pos_y - 1
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -209,11 +220,59 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-
-        # 从左到右
+        # 右下角一排的位置
+        if direction == 'M' and (loc_x, loc_y) == (8, 4):
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x - 1, pos_y), (pos_x - 2, pos_y), (pos_x - 3, pos_y), (pos_x - 4, pos_y),
+                     (pos_x - 5, pos_y - 1), (pos_x - 6, pos_y - 2), (pos_x - 7, pos_y - 3)]
+            for index, obj in enumerate(order):
+                if self.board[obj[0]][obj[1]] == 0:
+                    while index > 0:
+                        self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
+                            order[index - 1][1]]
+                        index = index - 1
+                    self.board[order[0][0]][order[0][1]] = 0
+                    break
+        if direction == 'L' and (loc_x,loc_y) in [(7, 5), (6, 6), (5, 7)]:
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
+                     (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
+            order = order[0:(min(pos_x, 8 - pos_x) + 4)]
+            for index, obj in enumerate(order):
+                if self.board[obj[0]][obj[1]] == 0:
+                    while index > 0:
+                        self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
+                            order[index - 1][1]]
+                        index = index - 1
+                    self.board[order[0][0]][order[0][1]] = 0
+                    break
+        if direction == 'R' and (loc_x,loc_y) in [(7, 5), (6, 6), (5, 7)]:
+            pos_x = loc_x
+            pos_y = loc_y
+            order = []
+            while pos_x > 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x - 1
+            while pos_x <= 4 and pos_x > 0 and pos_y > 0:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x - 1
+                pos_y = pos_y - 1
+            for index, obj in enumerate(order):
+                if self.board[obj[0]][obj[1]] == 0:
+                    while index > 0:
+                        self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
+                            order[index - 1][1]]
+                        index = index - 1
+                    self.board[order[0][0]][order[0][1]] = 0
+                    break
+        # 左上角的一排
         if direction == 'M' and (loc_x, loc_y) == (4, 0):
-            order = [(loc_x, loc_y), (loc_x, loc_y + 1), (loc_x, loc_y + 2), (loc_x, loc_y + 3), (loc_x, loc_y + 4),
-                     (loc_x, loc_y + 5), (loc_x, loc_y + 6), (loc_x, loc_y + 7)]
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
+                     (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -222,11 +281,17 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'R' and loc_y == 0:
-
-            order = [(loc_x, loc_y), (loc_x, loc_y + 1), (loc_x, loc_y + 2), (loc_x, loc_y + 3), (loc_x, loc_y + 4),
-                     (loc_x, loc_y + 5), (loc_x, loc_y + 6), (loc_x, loc_y + 7)]
-            order = order[0:(min(loc_x, 8 - loc_x) + 4)]
+        if direction == 'R' and (loc_x,loc_y) in [(3, 0), (2, 0), (1, 0)]:
+            pos_x = loc_x
+            pos_y = loc_y
+            order = []
+            while pos_x < 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x + 1
+                pos_y = pos_y + 1
+            while pos_x >= 4 and pos_x < 8 and pos_y < (12 - pos_x):
+                order.append((pos_x, pos_y))
+                pos_x = pos_x + 1
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -235,11 +300,26 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-
-        # 从右到左
+        if direction == 'L' and (loc_x,loc_y) in [(3, 0), (2, 0), (1, 0)]:
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
+                     (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
+            order = order[0:(min(pos_x, 8 - pos_x) + 4)]
+            for index, obj in enumerate(order):
+                if self.board[obj[0]][obj[1]] == 0:
+                    while index > 0:
+                        self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
+                            order[index - 1][1]]
+                        index = index - 1
+                    self.board[order[0][0]][order[0][1]] = 0
+                    break
+        # 左下的一条边
         if direction == 'M' and (loc_x, loc_y) == (4, 8):
-            order = [(loc_x, loc_y), (loc_x, loc_y - 1), (loc_x, loc_y - 2), (loc_x, loc_y - 3), (loc_x, loc_y - 4),
-                     (loc_x, loc_y - 5), (loc_x, loc_y - 6), (loc_x, loc_y - 7)]
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
+                     (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -248,10 +328,17 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'L' and loc_y == min(loc_x, 8 - loc_x) + 4:
-            order = [(loc_x, loc_y), (loc_x, loc_y - 1), (loc_x, loc_y - 2), (loc_x, loc_y - 3), (loc_x, loc_y - 4),
-                     (loc_x, loc_y - 5), (loc_x, loc_y - 6), (loc_x, loc_y - 7)]
-            order = order[0:(min(loc_x, 8 - loc_x) + 4)]
+        if direction == 'L' and (loc_x,loc_y) in [(5, 0), (6, 0), (7, 0)]:
+            pos_x = loc_x
+            pos_y = loc_y
+            order = []
+            while pos_x > 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x - 1
+                pos_y = pos_y + 1
+            while pos_x <= 4 and pos_x > 0 and pos_y < pos_x + 4:
+                order.append((pos_x, pos_y))
+                pos_x = pos_x - 1
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -260,6 +347,20 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
+        if direction == 'R' and (loc_x,loc_y) in [(5, 0), (6, 0), (7, 0)]:
+            pos_x = loc_x
+            pos_y = loc_y
+            order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
+                     (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
+            order = order[0:(min(pos_x, 8 - pos_x) + 4)]
+        for index, obj in enumerate(order):
+            if self.board[obj[0]][obj[1]] == 0:
+                while index > 0:
+                    self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
+                        order[index - 1][1]]
+                    index = index - 1
+                self.board[order[0][0]][order[0][1]] = 0
+                break
 
     def update(self):
         # remove piece if possible
