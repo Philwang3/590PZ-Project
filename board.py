@@ -547,7 +547,7 @@ class Game:
     def Draw(self, b):
         surface = pygame.display.get_surface()
         surface.fill((0, 0, 0))
-        if self.game.gameover():
+        if b == 'over' and self.state == 3:
             if self.game.white_piece == 0:
                 text = "Game is Over, Black wins!"
             else:
@@ -567,10 +567,10 @@ class Game:
         n = 1
         while True:
             event = pygame.event.wait()
-            if event.type == pygame.QUIT or self.game.gameover():  # 判断事件类型是否为退出事件
+            if event.type == pygame.QUIT :  # 判断事件类型是否为退出事件
                 pygame.quit()
                 return
-            else:
+            elif self.game.gameover() == False:
                 self.state = 2
                 if n % 2 != 0:
                     self.game.insert(1)
@@ -585,6 +585,9 @@ class Game:
                 self.Draw(b)
                 # 改这个
                 print(self.game.board.tolist())
+            elif self.game.gameover() == True:
+                self.Draw('over')
+                return
 
 
         

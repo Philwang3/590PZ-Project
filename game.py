@@ -16,10 +16,8 @@ class AI:
         self.state = 1
         self.player = None
         self.ai = None
-        surface = pygame.display.get_surface()
-        surface.fill((0, 0, 0))
-        self.play_board.Draw_board()
         self.player_choose()
+        self.Draw(1)
 
     def player_choose(self):
         self.player = input("Entering AI game, player choose your color please (b or w): ")
@@ -34,15 +32,13 @@ class AI:
     def Draw(self, b):
         surface = pygame.display.get_surface()
         surface.fill((0, 0, 0))
-        if self.game.gameover():
+        if b == 'over' and self.state == 3:
             if self.game.white_piece == 0:
                 text = "Game is Over, Black wins!"
             else:
                 text = "Game is Over, White wins!"
             gui.DrawText(text, 45, (150, 150))
-        if self.state == 1:
-            self.play_board.Draw_board()
-        elif self.state == 2:
+        elif self.game.gameover() == False:
             if b == 1:
                 text = "Black chess's turn"
             else:
@@ -116,10 +112,10 @@ class AI:
         n = 1
         while True:
             event = pygame.event.wait()
-            if event.type == pygame.QUIT or self.game.gameover():  # 判断事件类型是否为退出事件
+            if event.type == pygame.QUIT:  # 判断事件类型是否为退出事件
                 pygame.quit()
                 return
-            else:
+            elif self.game.gameover() == False:
                 self.state = 2
                 if n % 2 != 0:
                     if self.ai == 'b':
@@ -133,6 +129,10 @@ class AI:
                         self.AI_turn()
                 n = n + 1
                 print(self.game.board.tolist())
+            elif self.game.gameover() == True:
+                self.state = 3
+                self.Draw('over')
+                return
 
 
 if __name__ == "__main__":
