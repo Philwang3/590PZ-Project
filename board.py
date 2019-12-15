@@ -353,14 +353,14 @@ class board:
             order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
                      (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
-        for index, obj in enumerate(order):
-            if self.board[obj[0]][obj[1]] == 0:
-                while index > 0:
-                    self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
-                        order[index - 1][1]]
-                    index = index - 1
-                self.board[order[0][0]][order[0][1]] = 0
-                break
+            for index, obj in enumerate(order):
+                if self.board[obj[0]][obj[1]] == 0:
+                    while index > 0:
+                        self.board[order[index][0]][order[index][1]] = self.board[order[index - 1][0]][
+                            order[index - 1][1]]
+                        index = index - 1
+                    self.board[order[0][0]][order[0][1]] = 0
+                    break
 
     def update(self):
         # remove piece if possible
