@@ -9,6 +9,8 @@ pygame.init()
 
 class AI:
 
+    """This is just a class of a simple AI that a player can play with"""
+
     def __init__(self):
         self.game = board.board()
         self.window = pygame.display.set_mode((700, 600))
@@ -20,6 +22,7 @@ class AI:
         self.Draw(1)
 
     def player_choose(self):
+        """Player choose whether they want to go white or black (by typing b/w)"""
         self.player = input("Entering AI game, player choose your color please (b or w): ")
         if self.player == 'b':
             self.ai = 'w'
@@ -30,6 +33,7 @@ class AI:
             self.player_choose()
 
     def Draw(self, b):
+        """Draw current using Pygame (functions in gui.py)"""
         surface = pygame.display.get_surface()
         surface.fill((0, 0, 0))
         if b == 'over' and self.state == 3:
@@ -53,6 +57,7 @@ class AI:
         pygame.display.flip()
 
     def generate_pos(self, player):
+        """AI generating positions to put chess"""
         loc = random.randint(0, 23)
         self.game.board[self.game.side[loc][0]][self.game.side[loc][1]] = player
         if player == 1:
@@ -61,6 +66,7 @@ class AI:
             self.game.white_piece = self.game.white_piece - 1
 
     def generate_direction(self):
+        """AI chooses which direction to push"""
         for i in self.game.side:
             if self.game.board[i[0]][i[1]] != 0:
                 loc_x = i[0]
@@ -83,6 +89,7 @@ class AI:
         return direction
 
     def AI_turn(self):
+        """Function for AI's turn of playing"""
         workable = False
         print("AI is now deciding")
         turn = 0
@@ -105,6 +112,7 @@ class AI:
         self.Draw(turn)
 
     def player_turn(self):
+        """Player's turn of playing"""
         workable = False
         block_player = 0
         turn = 0
@@ -122,6 +130,7 @@ class AI:
         self.Draw(turn)
 
     def run(self):
+        """Game Run function"""
         n = 1
         while True:
             event = pygame.event.wait()
