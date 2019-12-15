@@ -92,7 +92,7 @@ class AI:
         self.game.push(direction)
         self.game.update()
         print("AI's turn:")
-        time.sleep(3)
+        time.sleep(2)
         self.Draw(b)
 
     def player_turn(self):
