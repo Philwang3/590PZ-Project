@@ -800,7 +800,6 @@ class Game:
                     self.game.update()
                     self.Draw(turn)
                 n = n + 1
-                # 改这个
                 print(self.game.board.tolist())
             elif self.game.gameover():
                 self.Draw('over')
