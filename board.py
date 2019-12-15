@@ -1,6 +1,6 @@
 """
-First version of GIPF, using ndarray
-May switch to networkx later
+Latest version of GIPF
+Almost done
 """
 
 import numpy as np
@@ -11,10 +11,12 @@ pygame.init()
 
 
 class board:
-
     NETWORKMSG = pygame.USEREVENT
 
     def __init__(self):
+        """
+        I believe numpy is a little bit faster than a plain list of lists.
+        """
         self.board = np.array([[0, 0, 0, 0, 0],
                                [0, 2, 0, 0, 1, 0],
                                [0, 0, 0, 0, 0, 0, 0],
@@ -34,6 +36,12 @@ class board:
         pass
 
     def insert(self, player):
+        """
+        This function is to place a new piece on board
+
+        :param player: Here we use 1 to represent black, 2 to represent white
+        :return: an updated board
+        """
         loc = int(input("Please input the location number,from 0 to 23: "))
         if loc < 0 or loc > 23:
             print("Illegal input, try again! ")
@@ -46,6 +54,15 @@ class board:
                 self.white_piece = self.white_piece - 1
 
     def direction(self):
+        """
+        This function is to ask user to choose a direction to which they want to push the piece they just placed
+        There are three directions here: M for middle, L for left, R for right M happens when there is only one
+        direction to choose, which means the new piece in at the cornor L and R are a relative direction,
+        supposing you stand at the point of the new piece, and face to the board This is important If you placed a
+        piece at the very top edge, than the choice of L actually causes your piece being pushed to bottom-right
+        looking from outside of the screen.
+        :return: a string indicating the direction
+        """
         for i in self.side:
             if self.board[i[0]][i[1]] != 0:
                 loc_x = i[0]
@@ -63,14 +80,30 @@ class board:
         return direction
 
     def push(self, direction):
+        """
+        This is the longest function I've ever written, because of so much repeat This function is to push the piece
+        from the edge of the board I have to repeat the same model for every line, since the relative direction
+        varies, hence the way of updating the board changes as well.
+        First find out the position of the new piece and store it.
+        Then generate the whole sequenced index of a line according to the direction and position, put it in order.
+        Then check if this line is full or not, if it's full and unable to be pushed, print an alarm and return false.
+        Finally use the order list to update the board
+        Repeat previous steps
+
+        :param direction: the string we got from direction function
+        :return: an updated board
+        """
+        # find out the position of the piece
         for i in self.side:
             if self.board[i[0]][i[1]] != 0:
                 loc_x = i[0]
                 loc_y = i[1]
-        # 最上面一排
+        # For the very top edge
+        # if it's the up-left cornor
         if direction == 'M' and (loc_x, loc_y) == (0, 0):
             pos_x = loc_x
             pos_y = loc_y
+            # This is the line from up-left to down-right
             order = [(pos_x, pos_y), (pos_x + 1, pos_y + 1), (pos_x + 2, pos_y + 2), (pos_x + 3, pos_y + 3),
                      (pos_x + 4, pos_y + 4), (pos_x + 5, pos_y + 4), (pos_x + 6, pos_y + 4), (pos_x + 7, pos_y + 4)]
             # Test if it's pushable
@@ -83,7 +116,7 @@ class board:
                 print("This line is full and cannot be pushed! Make another choice!")
                 self.board[loc_x][loc_y] = 0
                 return False
-
+            # Update this line
             for index, obj in enumerate(order):
                 if self.board[obj[0]][obj[1]] == 0:
                     while index > 0:
@@ -173,7 +206,7 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'R' and (loc_x, loc_y) in [(0,4), (1,5), (2,6), (3,7)]:
+        if direction == 'R' and (loc_x, loc_y) in [(0, 4), (1, 5), (2, 6), (3, 7)]:
             pos_x = loc_x
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
@@ -326,7 +359,7 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'L' and (loc_x,loc_y) in [(7, 5), (6, 6), (5, 7)]:
+        if direction == 'L' and (loc_x, loc_y) in [(7, 5), (6, 6), (5, 7)]:
             pos_x = loc_x
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
@@ -349,7 +382,7 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'R' and (loc_x,loc_y) in [(7, 5), (6, 6), (5, 7)]:
+        if direction == 'R' and (loc_x, loc_y) in [(7, 5), (6, 6), (5, 7)]:
             pos_x = loc_x
             pos_y = loc_y
             order = []
@@ -400,7 +433,7 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'R' and (loc_x,loc_y) in [(3, 0), (2, 0), (1, 0)]:
+        if direction == 'R' and (loc_x, loc_y) in [(3, 0), (2, 0), (1, 0)]:
             pos_x = loc_x
             pos_y = loc_y
             order = []
@@ -428,7 +461,7 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'L' and (loc_x,loc_y) in [(3, 0), (2, 0), (1, 0)]:
+        if direction == 'L' and (loc_x, loc_y) in [(3, 0), (2, 0), (1, 0)]:
             pos_x = loc_x
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
@@ -474,7 +507,7 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'L' and (loc_x,loc_y) in [(5, 0), (6, 0), (7, 0)]:
+        if direction == 'L' and (loc_x, loc_y) in [(5, 0), (6, 0), (7, 0)]:
             pos_x = loc_x
             pos_y = loc_y
             order = []
@@ -502,7 +535,7 @@ class board:
                         index = index - 1
                     self.board[order[0][0]][order[0][1]] = 0
                     break
-        if direction == 'R' and (loc_x,loc_y) in [(5, 0), (6, 0), (7, 0)]:
+        if direction == 'R' and (loc_x, loc_y) in [(5, 0), (6, 0), (7, 0)]:
             pos_x = loc_x
             pos_y = loc_y
             order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
@@ -527,7 +560,19 @@ class board:
                     break
 
     def update(self):
-        # remove piece if possible
+        """
+        This function is to remove pieces if possible According to the game rule, whenever four pieces of the same
+        color exist in one line, the whole line has to be emptied.
+        Just like the push function, generate an order list, than loop the board to count the non-empty position
+        If it's equal to or more than 4, empty the whole line
+        Return the piece to the current play
+        drop the other pieces
+
+        :return: an updated board
+        """
+        # I use six lists to store the starting positions of edges that have the same moving pattern
+        # Then loop every list to generate a new order
+        # Then check if it triggers the rule
         upleft = [(3, 0), (2, 0), (1, 0), (0, 0), (0, 1), (0, 2), (0, 3)]
         upright = [(0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (2, 6), (3, 7)]
         downleft = [(5, 0), (6, 0), (7, 0), (8, 0), (8, 1), (8, 2), (8, 3)]
@@ -757,4 +802,3 @@ class Game:
 if __name__ == "__main__":
     game = Game()
     game.run()
-
