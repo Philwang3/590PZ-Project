@@ -38,6 +38,6 @@ Wiki: https://en.wikipedia.org/wiki/GIPF_project
 
 Reference
 
-For the visualization part, we took piotrf17's gui.py part for reference, specifically, the class structure and some syntax of drawing pieces and board. Url: https://github.com/piotrf17/gipf/blob/master/gui.py
+For the visualization part, we looked into piotrf17's gui.py part for reference, specifically, the class structure and some syntax of drawing pieces and board. Then we learnt about that and modified their usage idea to fit our own code. Url: https://github.com/piotrf17/gipf/blob/master/gui.py
 
 Enjoy!
