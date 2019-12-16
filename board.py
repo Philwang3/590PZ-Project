@@ -99,7 +99,7 @@ class board:
                 loc_x = i[0]
                 loc_y = i[1]
         # For the very top edge
-        # if it's the up-left cornor
+        # if it's the up-left corner
         if direction == 'M' and (loc_x, loc_y) == (0, 0):
             pos_x = loc_x
             pos_y = loc_y
@@ -108,7 +108,7 @@ class board:
                      (pos_x + 4, pos_y + 4), (pos_x + 5, pos_y + 4), (pos_x + 6, pos_y + 4), (pos_x + 7, pos_y + 4)]
             # Test if it's pushable
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -137,7 +137,7 @@ class board:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x + 1
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -166,7 +166,7 @@ class board:
                 pos_x = pos_x + 1
                 pos_y = pos_y - 1
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -190,7 +190,7 @@ class board:
                      (pos_x + 5, pos_y - 1), (pos_x + 6, pos_y - 2), (pos_x + 7, pos_y - 3)]
             order = order[0:(pos_y + 4)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -213,7 +213,7 @@ class board:
                      (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -241,7 +241,7 @@ class board:
                 pos_x = pos_x + 1
                 pos_y = pos_y - 1
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -264,7 +264,7 @@ class board:
             order = [(pos_x, pos_y), (pos_x - 1, pos_y + 1), (pos_x - 2, pos_y + 2), (pos_x - 3, pos_y + 3),
                      (pos_x - 4, pos_y + 4), (pos_x - 5, pos_y + 4), (pos_x - 6, pos_y + 4), (pos_x - 7, pos_y + 4)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -292,7 +292,7 @@ class board:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x - 1
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -320,7 +320,7 @@ class board:
                 pos_x = pos_x - 1
                 pos_y = pos_y - 1
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -343,7 +343,7 @@ class board:
             order = [(pos_x, pos_y), (pos_x - 1, pos_y), (pos_x - 2, pos_y), (pos_x - 3, pos_y), (pos_x - 4, pos_y),
                      (pos_x - 5, pos_y - 1), (pos_x - 6, pos_y - 2), (pos_x - 7, pos_y - 3)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -366,7 +366,7 @@ class board:
                      (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -394,7 +394,7 @@ class board:
                 pos_x = pos_x - 1
                 pos_y = pos_y - 1
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -417,7 +417,7 @@ class board:
             order = [(pos_x, pos_y), (pos_x, pos_y + 1), (pos_x, pos_y + 2), (pos_x, pos_y + 3), (pos_x, pos_y + 4),
                      (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -445,7 +445,7 @@ class board:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x + 1
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -468,7 +468,7 @@ class board:
                      (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -491,7 +491,7 @@ class board:
             order = [(pos_x, pos_y), (pos_x, pos_y - 1), (pos_x, pos_y - 2), (pos_x, pos_y - 3), (pos_x, pos_y - 4),
                      (pos_x, pos_y - 5), (pos_x, pos_y - 6), (pos_x, pos_y - 7)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -519,7 +519,7 @@ class board:
                 order.append((pos_x, pos_y))
                 pos_x = pos_x - 1
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
@@ -542,7 +542,7 @@ class board:
                      (pos_x, pos_y + 5), (pos_x, pos_y + 6), (pos_x, pos_y + 7)]
             order = order[0:(min(pos_x, 8 - pos_x) + 4)]
             limit = len(order) - 1
-            occupied = 0
+            occupied = -1
             for i in order:
                 if self.board[i[0]][i[1]] != 0:
                     occupied = occupied + 1
