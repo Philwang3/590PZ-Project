@@ -76,6 +76,9 @@ class board:
             direction = 'M'
         else:
             direction = input("Please choose your direction: L or R: ")
+            if direction != "L" and direction != "R" and direction != "l" and direction != "r":
+                print("Your input does not match any direction, please follow the guide and try again!")
+                return self.direction()
 
         return direction
 
@@ -762,16 +765,16 @@ class Game:
             else:
                 text = "Game is Over, White wins!"
             gui.DrawText(text, 45, (150, 150))
-            gui.DrawText("White chess: " + str(self.game.white_piece), 30, (150, 200))
-            gui.DrawText("Black chess: " + str(self.game.black_piece), 30, (150, 250))
+            gui.DrawText("White piece(s): " + str(self.game.white_piece), 30, (150, 200))
+            gui.DrawText("Black piece(s): " + str(self.game.black_piece), 30, (150, 250))
         elif self.game.gameover() == False:
             if b == 1:
                 text = "Black chess's turn"
             else:
                 text = "White chess's turn"
             gui.DrawText(text, 45, (150, 150))
-            gui.DrawText("White chess: " + str(self.game.white_piece), 30, (150, 200))
-            gui.DrawText("Black chess: " + str(self.game.black_piece), 30, (150, 250))
+            gui.DrawText("White piece(s): " + str(self.game.white_piece), 30, (150, 200))
+            gui.DrawText("Black piece(s): " + str(self.game.black_piece), 30, (150, 250))
             self.play_board.Draw_board()
             print("PLaying")
         pygame.display.flip()
